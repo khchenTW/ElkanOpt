@@ -8,14 +8,12 @@ def libsvmPreprocess(pathInput, pathOutput, name):
 
 	# at first load the raw dataset
 	x1 = load_svmlight_file(pathInput+name)
-
-	B = x1[0].toarray()
+	B = x1[0].toarray().tolist()
 	#for toarray
 	line_count = 0
 	with open(pathOutput+name+'.txt', 'w') as myfile:
 		myfile.write(str(len(B))+" "+str(len(B[0]))+"\n") # number data points / number of features
 		for i,line in enumerate(B):
-
 			line=str(line)+"\n"
 			myfile.writelines(line.replace('[','').replace(']',''))
 	myfile.close()
@@ -39,28 +37,31 @@ def datasetPreprocess(pathInput, pathOutput, name):
 											  "./datasets/gassensor/batch7.dat",
 											  "./datasets/gassensor/batch8.dat",
 											  "./datasets/gassensor/batch9.dat",
-											  "./datasets/gassensor/batch10.dat"), multilabel=True)
+											  "./datasets/gassensor/batch10.dat"))
 	B=x1.toarray().tolist()+x2.toarray().tolist()+x3.toarray().tolist()+x4.toarray().tolist()+x5.toarray().tolist()+x6.toarray().tolist()+x7.toarray().tolist()+x8.toarray().tolist()+x9.toarray().tolist()+x10.toarray().tolist()
-	# x1,y1,x2,y2=load_svmlight_files(("datasets/gassensor/batch1.dat","datasets/gassensor/batch2.dat"))
-	# B=x1.toarray().tolist()+x2.toarray().tolist()
-	print(test)
+    # please note that the raw data might have semicolon in the first field, which is the class and misc.info. This will lead to an error for converting string to float.
+
+	# x1,y1,x2,y2 = load_svmlight_files(("./datasets/gassensor/batch1.dat","./datasets/gassensor/batch2.dat"))
+	# B = x1[0].toarray().tolist()+x2.toarray().tolist()
 
 	#for tolist
 	import re
 	#B = x1[0].toarray().tolist()
 
 	with open('./datasets/gassensor.txt', 'w') as myfile:
+		myfile.write(str(len(B))+" "+str(len(B[0]))+"\n") # number data points / number of features
 		for i,line in enumerate(B):#myfile.write("%s\n" % line)
 			line=str(line)+"\n"
 			myfile.writelines(line.replace('[','').replace(']','').replace(',',' '))
 
 		#os.rename('newfile.txt',originalfile)
-	file=insert('./datasets/gassensor.txt',"14000 128\n")
+	# file=insert('./datasets/gassensor.txt',"14000 128\n")
 
 def main():
 	args = sys.argv
 	if len(args) < 5:
 		print ("Usage: python dataPreprocessing.py <flag> <path/of/inputDataset> <path/of/outputDataset> <name>, flag 0 for LIBSVM; 1 for UCI repository ")
+		print ("for example: python dataPreprocessing.py 0 datasets/ datasets/ skin_nonskin")
 		return
 	mode = int(args[1])
 	pathI = str(args[2])

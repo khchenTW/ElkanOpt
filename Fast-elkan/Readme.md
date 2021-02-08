@@ -14,7 +14,7 @@ You can read the source to find all the possible commands, but here is a summary
 For example:
 ```
 make all
-./bin/driver-standalone MO_elkan ../datasets/skin_nonskin_clean.txt 50 centers
+./bin/driver-standalone MO_elkan ../datasets/skin_nonskin.txt 50 centers
 ```
 Please note that yinyang_k-means is incompleted version.
 
