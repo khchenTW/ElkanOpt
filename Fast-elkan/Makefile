@@ -34,10 +34,7 @@ BIN_DIR:=bin
 EXE:=$(BIN_DIR)/driver-standalone
 SRC:=$(wildcard $(SRC_DIR)/*.cpp | grep -v driver | grep -v fastkmeans)
 OBJ:=$(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
-# LIBSRC = $(shell ls $(SRC_DIR)/*.cpp | grep -v driver | grep -v fastkmeans | grep -v py)
-# LIBOBJS = $(LIBSRC:.cpp =.o)
 # Source files for libkmeans, excluding files for Python module
-
 
 KMEANSLIBRARY = ./lib/libkmeans.a
 
