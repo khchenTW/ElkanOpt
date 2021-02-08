@@ -12,7 +12,11 @@ You can read the source to find all the possible commands, but here is a summary
 - number of centers --use the given number as initial number of centers
 - output --output the result of clustering eg. <centers> outputs results of all centers. Otherwise, output the results of assigned center of each point 
 For example:
- ./driver-standalone MO_elkan ../datasets/skin_nonskin_clean.txt 50 centers
+```
+make all
+cd bin
+./driver-standalone MO_elkan ../datasets/skin_nonskin_clean.txt 50 centers
+```
 
 Some notes for the past:
 - Data preprocess for livsvmdataset
