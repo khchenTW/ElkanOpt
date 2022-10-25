@@ -3,13 +3,13 @@ MAKEFLAGS = -j 8
 
 # Compiler and preprocessor flags
 CC:= g++
-CPPFLAGS = -Werror -pedantic -Iinclude/ 
+CPPFLAGS = -Werror -pedantic -Iinclude/
 CPPFLAGS += -fPIC
 CPPFLAGS += -g
 CPPFLAGS += -O3
 CPPFLAGS += -Wno-long-long
 CPPFLAGS += -std=c++11
-LDLIBS:= -lkmeans
+LDLIBS:= -llibkmeans
 LDFLAGS:= -Llib
 
 # Verify algorithm correctness while debugging
@@ -36,17 +36,18 @@ SRC:=$(wildcard $(SRC_DIR)/*.cpp | grep -v driver | grep -v fastkmeans)
 OBJ:=$(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 # Source files for libkmeans, excluding files for Python module
 
-KMEANSLIBRARY = ./lib/libkmeans.a
+
+KMEANSLIBRARY = ./libkmeans.a
 
 .PHONY: clean all
 
-all: $(EXE) 
+all: $(EXE)
 
 $(KMEANSLIBRARY): $(OBJ)
 	ar -cr $(KMEANSLIBRARY) $(OBJ)
 
 $(EXE): $(OBJ) | $(BIN_DIR) $(KMEANSLIBRARY)
-	$(CC) $(CPPFLAGS) $(LDFLAGS) $^ $(LDLIBS) -o $@
+	$(CC) $(CPPFLAGS) $(LDFLAGS) $^ -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
 	$(CC) $(CPPFLAGS) -c -o $@ $<
